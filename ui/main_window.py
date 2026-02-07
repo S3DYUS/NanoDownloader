@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import filedialog, Menu
 from packaging import version
-
+from utils.resource_path import resource_path
 from core.config import APP_VERSION, APP_NAME
 from services.update_service import obtener_latest_release, actualizar_app
 
@@ -16,7 +16,7 @@ class MainWindow(ctk.CTk):
         self.config_service = config_service
 
         self.title(f"{APP_NAME}")
-        self.iconbitmap("assets/NanoDownloader.ico")  # Debe ser un .ico en Windows
+        self.iconbitmap(resource_path("assets/NanoDownloader.ico"))  # Debe ser un .ico en Windows
         self.geometry("650x350")
         self._centrar()
 
@@ -254,9 +254,10 @@ class MainWindow(ctk.CTk):
 
         win = ctk.CTkToplevel(self)
         win.title("Acerca de")
+        
         win.geometry("420x300")
         win.resizable(False, False)
-
+        win.iconbitmap(resource_path("assets/NanoDownloader.ico"))
         # --- contenido ---
         ctk.CTkLabel(
             win,
@@ -308,7 +309,7 @@ class MainWindow(ctk.CTk):
         tag, url = obtener_latest_release()
 
         if tag and version.parse(tag) > version.parse(APP_VERSION):
-            estado.configure(text=f"Nueva versión disponible: {tag}\nSe descargará el instalador")
+            estado.configure(text=f"Nueva versión disponible: {tag}")
             ctk.CTkButton(win, text="Actualizar",
                         command=lambda: actualizar_app(url)).pack(pady=10)
         else:
