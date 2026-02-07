@@ -1,0 +1,7 @@
+customtkinter>=5.2.0
+yt-dlp>=2026.01.06
+requests>=2.31.0
+packaging>=23.1
+pillow>=10.0.0
+pyinstaller>=5.15.0
+typing-extensions>=4.7.1
