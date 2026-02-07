@@ -8,6 +8,8 @@ Permite:
 - Convertir audio a MP3
 - Descargar subtítulos
 
+[`Lista de plataformas soportadas`](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)
+
 ## ⚙️ Instalación de dependencias
 
 Se recomienda usar Python 3.11+
