@@ -1,4 +1,4 @@
-# NanoDownloader
+# Nano Downloader
 
 Aplicación para descargar **video, audio y subtítulos** de YouTube, basada en [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) y con interfaz moderna en [`CustomTkinter`](https://github.com/TomSchimansky/CustomTkinter).
 
