@@ -1,9 +1,6 @@
 # Nano Downloader
 
-Aplicación para descargar **video, audio y subtítulos** de YouTube, basada en
-<a href="https://github.com/yt-dlp/yt-dlp" target="_blank">yt-dlp</a> y
-<a href="https://www.gyan.dev/ffmpeg/builds/" target="_blank">FFmpeg</a> con una interfaz moderna construida con
-<a href="https://github.com/TomSchimansky/CustomTkinter" target="_blank">CustomTkinter</a>.
+Aplicación para descargar **video, audio y subtítulos** de YouTube, basada en [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) y [`FFmpeg`](https://www.gyan.dev/ffmpeg/builds/) con una interfaz moderna contruida con [`CustomTkinter`](https://github.com/TomSchimansky/CustomTkinter).
 
 Permite:
 
