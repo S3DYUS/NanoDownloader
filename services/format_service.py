@@ -1,34 +1,57 @@
 from yt_dlp import YoutubeDL
 
 
-def limpiar(f, modo):
-    if modo == "Audio":
-        return f"{f.get('ext')} {int(f.get('abr',0))}kbps"
-    if modo == "Video":
-        return f"{f.get('ext')} {f.get('height',0)}p"
-    return ""
+def limpiar_audio(f):
+    abr = f.get("abr")
+    ext = f.get("ext", "audio")
+    if not abr:
+        abr = 0
+    return f"{ext} - {int(abr)} kbps"
+
+
+def limpiar_video(f):
+    ext = f.get("ext", "video")
+    h = f.get("height") or 0
+    return f"{ext} - {h}p"
 
 
 def obtener_formatos(url, modo):
-    with YoutubeDL({'listformats': True}) as ydl:
+    with YoutubeDL() as ydl:
         info = ydl.extract_info(url, download=False)
 
     ids = {}
     lista = []
 
-    if modo in ("Audio", "Video"):
+    # ---------------- AUDIO ----------------
+
+    if modo == "Audio":
         for f in info["formats"]:
-            if modo == "Audio" and f.get("acodec") != "none":
-                label = limpiar(f, modo)
-                ids[label] = f["format_id"]
-                lista.append(label)
+            if f.get("acodec") != "none" and f.get("vcodec") == "none":
+                label = limpiar_audio(f)
 
-            if modo == "Video" and f.get("vcodec") != "none":
-                label = limpiar(f, modo)
-                ids[label] = f["format_id"]
-                lista.append(label)
+                if label not in ids:
+                    ids[label] = f["format_id"]
+                    lista.append(label)
 
-        return sorted(set(lista), reverse=True), ids
+        return sorted(lista, reverse=True), ids
 
-    subs = list(info.get("subtitles", {}).keys())
-    return subs or ["No disponibles"], {}
+    # ---------------- VIDEO ----------------
+
+    if modo == "Video":
+        for f in info["formats"]:
+            if f.get("vcodec") != "none":
+                label = limpiar_video(f)
+
+                if label not in ids:
+                    ids[label] = f["format_id"]
+                    lista.append(label)
+
+        return sorted(lista, reverse=True), ids
+
+    # ---------------- SUBTÍTULOS ----------------
+
+    if modo == "Subtítulos":
+        subs = list(info.get("subtitles", {}).keys())
+        return subs if subs else ["No disponibles"], {}
+
+    return [], {}

@@ -22,7 +22,14 @@ class AppController:
             opts["format"] = self.format_ids.get(calidad, "bestaudio")
 
         if modo == "Video":
-            opts["format"] = self.format_ids.get(calidad, "best")
+            vid = self.format_ids.get(calidad)
+
+            if vid:
+                # fuerza ese video + mejor audio
+                opts["format"] = f"{vid}+bestaudio/best"
+            else:
+                opts["format"] = "bestvideo+bestaudio/best"
+
             opts["merge_output_format"] = "mp4"
 
         if modo == "Subtítulos":
