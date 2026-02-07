@@ -16,6 +16,7 @@ class MainWindow(ctk.CTk):
         self.config_service = config_service
 
         self.title(f"{APP_NAME}")
+        self.iconbitmap("assets/NanoDownloader.ico")  # Debe ser un .ico en Windows
         self.geometry("650x350")
         self._centrar()
 
