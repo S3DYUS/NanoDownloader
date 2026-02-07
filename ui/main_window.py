@@ -307,11 +307,11 @@ class MainWindow(ctk.CTk):
         tag, url = obtener_latest_release()
 
         if tag and version.parse(tag) > version.parse(APP_VERSION):
-            estado.configure(text=f"Nueva versión disponible: {tag}")
+            estado.configure(text=f"Nueva versión disponible: {tag}\nSe descargará el instalador")
             ctk.CTkButton(win, text="Actualizar",
-                          command=lambda: actualizar_app(url)).pack(pady=10)
+                        command=lambda: actualizar_app(url)).pack(pady=10)
         else:
-            estado.configure(text=f"Actualizado a su ultima version: {APP_VERSION}")
+            estado.configure(text=f"Actualizado a su última versión: {APP_VERSION}")
     # =========================
     # Event bus → UI
     # =========================

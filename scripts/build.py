@@ -12,6 +12,10 @@ UPDATER_SCRIPT = PROJECT_DIR / "updater.py"
 CONFIG_FILE = PROJECT_DIR / "../core/config.py"
 FFMPEG_BIN = PROJECT_DIR / "../ffmpeg/bin"
 
+# Carpeta de assets
+ASSETS_DIR = Path(__file__).parent.parent / "assets"
+DEFAULT_ICON = ASSETS_DIR / "NanoDownloader.ico"
+
 # -----------------------------
 # Leer versión actual desde core/config.py
 # -----------------------------
@@ -46,11 +50,17 @@ if opcion in ("1","3") and not nueva_version:
 nombre_app = f"NanoDownloader"
 
 # Icono
-icono_path = input("Ruta del icono (.ico) (dejar vacío para no usar icono): ").strip()
-if icono_path:
-    icono_path = str(Path(icono_path).resolve())
-    if not Path(icono_path).exists():
+icono_input = input("Ruta del icono (.ico) (dejar vacío para usar assets/NanoDownloader.ico): ").strip()
+if icono_input:
+    icono_path = Path(icono_input).resolve()
+    if not icono_path.exists():
         sys.exit("Icono no encontrado.")
+else:
+    if DEFAULT_ICON.exists():
+        icono_path = DEFAULT_ICON.resolve()
+    else:
+        icono_path = None
+        print("No se encontró icono por defecto, se continuará sin icono.")
 
 # Consola
 usar_consola = input("¿Mostrar consola al ejecutar? (s/N): ").strip().lower() == "s"
@@ -112,7 +122,7 @@ if opcion in ("1","3"):
 if opcion in ("2","3"):
     build_exe(
         UPDATER_SCRIPT,
-        "updater",
+        "Updater",
         icon=icono_path if icono_path else None,
         noconsole=True  # updater siempre sin consola
     )
